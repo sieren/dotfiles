@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_1='/Users/mfk/Git/coire-sync-app/modules/coire-sync'
+let g:netrw_dirhist_2='/Users/mfk/Git/coire-sync-app/modules/boost/build'
+let g:netrw_dirhist_3='/Users/sierenmusic/Development/wifiplate/cmake'
+let g:netrw_dirhist_4='/Users/sierenmusic/Development/wifiplate/.git'
+let g:netrw_dirhist_5='/Users/sierenmusic/Development/wifiplate/src/CMakeFiles'
+let g:netrw_dirhist_6='/Users/sierenmusic/Development/wifiplate/cmake'
+let g:netrw_dirhist_7='/Users/sierenmusic/Development/wifiplate/CMakeFiles'
+let g:netrw_dirhist_8='/Users/sierenmusic/Development/wifiplate/cmake'
+let g:netrw_dirhist_9='/Users/sierenmusic/Development/libczmq-ios/libczmq'
