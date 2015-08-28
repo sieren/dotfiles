@@ -1,6 +1,6 @@
 # load zgen
 source "${HOME}/dotfiles/zgen/zgen.zsh"
-export PATH="$PATH:/sbin/"
+export PATH="$PATH:/sbin/:/usr/sbin"
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
