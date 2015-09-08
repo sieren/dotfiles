@@ -1,6 +1,9 @@
 # load zgen
 source "${HOME}/dotfiles/zgen/zgen.zsh"
 export PATH="$PATH:/sbin/:/usr/sbin"
+alias 'brew --prefix' /bin/ctags
+alias glf='git log --decorate=full --graph'
+alias gl='git log --decorate=full'
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
@@ -33,3 +36,6 @@ EOPLUGINS
 fi
 
 ZSH_THEME=sorin
+
+export QTDIR64=/Volumes/GuiEnv_64/Qt5.5.0/clang_64
+export PATH=/Volumes/GuiEnv_64/Qt5.5.0/clang_64/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin

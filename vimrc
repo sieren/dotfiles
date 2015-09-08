@@ -19,7 +19,7 @@ set tw=90
 set laststatus=2
 set statusline+=%f\ 
 set statusline+=%=  
-"set statusline+=%{gutentags#statusline()}
+set statusline+=%{gutentags#statusline()}
 set statusline+=\ %c:%l\ 
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%91v', 100)
