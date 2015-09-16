@@ -1,6 +1,8 @@
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect('bundle/{}')
+Helptags
 filetype plugin indent on
+filetype on
 syntax on
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -18,16 +20,20 @@ set number
 set tw=90
 set laststatus=2
 set statusline+=%f\ 
-set statusline+=%=  
+set statusline+=%{fugitive#statusline()}
+"set statusline+=%=  
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#branch#enabled=1
 "set statusline+=%{gutentags#statusline()}
 set statusline+=\ %c:%l\ 
+let g:airline_theme = 'powerlineish'
+let g:airline#extensions#hunks#enabled=0
+"let g:airline_section_b = airline#section#create(['branch'])
+let g:airline#extensions#tabline#enabled = 1
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%91v', 100)
 set backspace=2
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+set background=dark
+colorscheme CandyPaper 
 
-"set runtimepath^=~/.vim/bundle/ctrlp.vim
-"exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
-"set list"
-set t_Co=256
-colo CandyPaper
