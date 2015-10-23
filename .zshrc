@@ -1,9 +1,9 @@
 # load zgen
 source "${HOME}/dotfiles/zgen/zgen.zsh"
-export PATH="$PATH:/sbin/:/usr/sbin"
 alias 'brew --prefix' /bin/ctags
-alias glf='git log --decorate=full --graph'
-alias gl='git log --decorate=full'
+alias gl='git log --decorate=full --graph'
+alias gtl='git log --decorate=full'
+alias gs='git status'
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
