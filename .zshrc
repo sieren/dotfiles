@@ -29,13 +29,14 @@ EOPLUGINS
     zgen load zsh-users/zsh-completions src
 
     # theme
-   zgen oh-my-zsh themes/sorin
+   zgen oh-my-zsh themes/nanotech
 
     # save all to init script
     zgen save
 fi
 
-ZSH_THEME=sorin
+#ZSH_THEME=sorin
+ZSH_THEME=nanotech
 
 export QTDIR64=/Volumes/GuiEnv_64/Qt5.5.0/clang_64
 export PATH=/Volumes/GuiEnv_64/Qt5.5.0/clang_64/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
