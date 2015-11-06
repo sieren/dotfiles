@@ -1,6 +1,7 @@
 # load zgen
 source "${HOME}/dotfiles/zgen/zgen.zsh"
 alias 'brew --prefix' /bin/ctags
+set -g default-terminal "screen-256color"
 alias gl='git log --decorate=full --graph'
 alias gtl='git log --decorate=full'
 alias gs='git status'
