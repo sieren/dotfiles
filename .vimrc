@@ -36,4 +36,6 @@ set backspace=2
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
 set background=dark
 colorscheme CandyPaper 
-
+if &term =~ 'xterm-256color'
+set t_ut=
+endif
