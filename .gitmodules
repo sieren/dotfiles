@@ -10,3 +10,6 @@
 [submodule ".vim/bundle/tmuxline.vim"]
 	path = .vim/bundle/tmuxline.vim
 	url = https://github.com/edkolev/tmuxline.vim.git
+[submodule ".vim/bundle/vim-colors-solarized"]
+	path = .vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
