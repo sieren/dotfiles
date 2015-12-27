@@ -5,6 +5,7 @@ set -g default-terminal "screen-256color"
 alias gl='git log --decorate=full --graph'
 alias gtl='git log --decorate=full'
 alias gs='git status'
+alias gsu='git submodule update --init --recursive'
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
