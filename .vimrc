@@ -39,3 +39,4 @@ colorscheme CandyPaper
 if &term =~ 'xterm-256color'
 set t_ut=
 endif
+let g:Powerline_symbols = 'fancy'

@@ -16,3 +16,9 @@
 [submodule "zgen"]
 	path = zgen
 	url = git@github.com:tarjoilija/zgen.git
+[submodule ".vim/bundle/vim-easytags"]
+	path = .vim/bundle/vim-easytags
+	url = https://github.com/xolox/vim-easytags
+[submodule ".vim/bundle/vim-misc"]
+	path = .vim/bundle/vim-misc
+	url = https://github.com/xolox/vim-misc.git
