@@ -21,7 +21,7 @@ let s:purple       = "#a270df" "Repeat/Conditional
 let s:blue         = "#6fb5de" "Operator/Delimiter
 
 " Basic:
-let s:foreground   = "#dddddd"
+let s:foreground   = "#f0f0f8"
 let s:background   = "#050505"
 let s:nontext      = "#5a805a"
 let s:window       = "#4d4d4d"
