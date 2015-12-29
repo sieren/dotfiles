@@ -39,4 +39,5 @@ colorscheme CandyPaper
 if &term =~ 'xterm-256color'
 set t_ut=
 endif
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 let g:Powerline_symbols = 'fancy'
