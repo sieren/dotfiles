@@ -22,3 +22,6 @@
 [submodule ".vim/bundle/vim-misc"]
 	path = .vim/bundle/vim-misc
 	url = https://github.com/xolox/vim-misc.git
+[submodule ".vim/bundle/vim-clang"]
+	path = .vim/bundle/vim-clang
+	url = https://github.com/justmao945/vim-clang.git
