@@ -1,0 +1,2 @@
+[alias]
+    hist = log --pretty=format:\"%C(yellow)%h%Creset | %Cgreen%an%Creset | %Cred%ad%Creset | %s%C(cyan)%d%Creset\" --graph --date=short -30
