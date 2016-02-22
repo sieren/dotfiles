@@ -43,7 +43,10 @@ let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 let g:Powerline_symbols = 'fancy'
 let g:indentLine_enabled = 1
 let g:indentLine_char = '┆'
+let NERDTreeShowHidden = 1
 
+nnoremap <F1> :NERDTree<CR>
+nnoremap <F5> :buffers<CR>:buffer<Space>
 " Highlight trailing whitespace
 hi ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
