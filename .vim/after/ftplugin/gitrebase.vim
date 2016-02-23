@@ -5,5 +5,4 @@ function RebaseActionToggle()
     execute "normal! ^cw" . transitions[result]
     execute "normal! ^"
 endfunction
-
-noremap  :call RebaseActionToggle()
+noremap <Cr> :call RebaseActionToggle()<Cr>

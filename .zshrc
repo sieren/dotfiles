@@ -7,6 +7,7 @@ alias gh='git hist'
 alias gtl='git log --decorate=full'
 alias gs='git status'
 alias gsu='git submodule update --init --recursive'
+alias gca='git commit --amend'
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
