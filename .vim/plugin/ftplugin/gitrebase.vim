@@ -32,7 +32,7 @@ command! -buffer -bar Reword :call s:choose('reword')
 command! -buffer -bar Fixup  :call s:choose('fixup')
 command! -buffer -bar Cycle  :call s:cycle()
 " The above are more useful when they are mapped; for example:
-"nnoremap <buffer> <silent> S :Cycle<CR>
+nnoremap <buffer> <silent> S :Cycle<CR>
 
 if exists("g:no_plugin_maps") || exists("g:no_gitrebase_maps")
   finish
