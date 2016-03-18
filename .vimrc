@@ -21,6 +21,7 @@ set tw=90
 set laststatus=2
 set statusline+=%f\ 
 set statusline+=%{fugitive#statusline()}
+set mouse=a
 "set statusline+=%=  
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#branch#enabled=1
