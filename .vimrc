@@ -17,6 +17,7 @@ set softtabstop=2
 set expandtab
 set relativenumber
 set number
+set hidden
 set tw=90
 set laststatus=2
 set statusline+=%f\ 
