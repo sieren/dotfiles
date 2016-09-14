@@ -1,17 +1,28 @@
 #!/bin/bash
 # A collection of random git functions which help out during my daily workflow.
 # This is kind of an expanded version of git aliases, with some other helper
-# functions added in as well.
-# To install, source this file from your ~/.bashrc
+# functions as well. To install, source this script from your ~/.bashrc file.
 #
 # All pull requests welcome. For more info, contact me at GitHub:
 # http://github.com/nikreiman
 
-# Prefer git in /usr/local to system default
+# Prefer git in /usr/local to the system default. This is particularly useful on
+# macOS, where Xcode ships an older version of git than homebrew.
 [ -e "/usr/local/bin/git" ] && alias git="/usr/local/bin/git"
 
-gitLogFormatShort="%C(cyan)%cr %Creset%s"
-gitLogFormatOneline="%C(yellow)%h %C(green)%an %C(cyan)%cr %Creset%s"
+# Delimiter to be used when creating branches. By default, this is
+# $GIT_BRANCH_DELIMITER, which lends itself nicely to the git branch grouping
+# quasi-feature. That means branches will look like
+# "username/upstream-branch/feature-name".
+#
+# Sometimes $GIT_BRANCH_DELIMITER can be problematic, such as in the case of one
+# particular project I work on where a jenkins server attempts to create files
+# on a scratch directory for each branch that it builds, and of course
+# $GIT_BRANCH_DELIMITER in the filename causes this to fail spectacularly. To
+# change the delimiter, export this variable elsewhere.
+if [ -z "$GIT_BRANCH_DELIMITER" ]; then
+  GIT_BRANCH_DELIMITER="/"
+fi
 
 ######################
 # Git shell launcher #
@@ -51,18 +62,22 @@ function git-branch-current() {
   git rev-parse --abbrev-ref HEAD
 }
 
-function git-branch-create() {
-  local currentBranch=$(git-branch-current)
-  if [ $(echo "$currentBranch" | grep '/') ]; then
-    currentBranch=$(echo $currentBranch | cut -d '/' -f 2)
+function git-branch-base() {
+  local baseBranch=$(git-branch-current)
+  if [ $(echo "$baseBranch" | grep "$GIT_BRANCH_DELIMITER") ]; then
+    baseBranch=$(echo $baseBranch | cut -d $GIT_BRANCH_DELIMITER -f 2)
   fi
-  # Handle case when run from detatched HEAD
-  if [ "$currentBranch" = "HEAD" ]; then
-    printf "It seems that you are in detached HEAD, please checkout a branch\n"
+  printf "%s" $baseBranch
+}
+
+function git-branch-create() {
+  local baseBranch=$(git-branch-base)
+  if [ "$baseBranch" = "HEAD" ]; then
+    echo "It seems that you are in detached HEAD, please checkout a branch"
     return 1
   fi
   local featureName=$1
-  local newBranchName=$(printf "%s/%s/%s" "$USER" "$currentBranch" "$featureName")
+  local newBranchName=$(printf "%s%s%s%s%s" "$USER" "$GIT_BRANCH_DELIMITER" "$baseBranch" "$GIT_BRANCH_DELIMITER" "$featureName")
   local reply="n"
   read -p "Create branch $newBranchName ? " reply
   if [ "$reply" = "y" ]; then
@@ -74,7 +89,7 @@ function git-branch-cleanup() {
   local currentBranch=$(git-branch-current)
   local otherBranch=
   local logOutput=
-  for otherBranch in $(git branch | grep "${USER}/${currentBranch}"); do
+  for otherBranch in $(git branch | grep "${USER}${GIT_BRANCH_DELIMITER}${currentBranch}"); do
     logOutput=$(git log $otherBranch ^$currentBranch)
     if [ -z "$logOutput" ]; then
       git branch -d $otherBranch
@@ -83,6 +98,11 @@ function git-branch-cleanup() {
 }
 
 function git-branch-cleanup-remote() {
+  if [ $GIT_BRANCH_DELIMITER != "/" ]; then
+    echo "TODO: Function not supported for custom branch delimiters"
+    return
+  fi
+
   local otherBranch=
   local localBranchName=
   local originName="origin"
@@ -103,20 +123,29 @@ function git-branch-cleanup-remote() {
   done
 }
 
-function git-branch-diff() {
-  local currentBranch=$(git-branch-current)
-  local otherBranch=$(printf "%s" $currentBranch | cut -d '/' -f 2)
-  git log $* $currentBranch ^$otherBranch
-}
-
 function git-branch-bind() {
   local currentBranch=$(git-branch-current)
   git branch --set-upstream-to=origin/$currentBranch $currentBranch
 }
 
+function git-branch-diff() {
+  local baseBranch=$(git-branch-base)
+  local currentBranch=$(git-branch-current)
+  git log $* $currentBranch ^origin/$baseBranch
+}
+
+function git-branch-rebase() {
+  local baseBranch=$(git-branch-base)
+  local currentBranch=$(git-branch-current)
+  git fetch && git rebase origin/$baseBranch
+}
+
 #######
 # Log #
 #######
+
+gitLogFormatShort="%C(cyan)%cr %Creset%s"
+gitLogFormatOneline="%C(yellow)%h %C(green)%an %C(cyan)%cr %Creset%s"
 
 function git-log-last-pushed-hash() {
   local currentBranch=$(git-branch-current)
@@ -188,13 +217,13 @@ function git-changelog-since-last-tag() {
 
 function git-rebase-branch() {
   local currentBranch=$(git-branch-current)
-  local otherBranch=
+  local baseBranch=$(git-branch-base)
   if [ "$1" ]; then
-    otherBranch=$(printf "^%s" "$1")
+    baseBranch=$1
   else
-    otherBranch=$(printf "%s" $currentBranch | cut -d '/' -f 2)
+    baseBranch=$(printf "origin/%s" $baseBranch)
   fi
-  local headCommit=$(git log --format="%h" $currentBranch ^$otherBranch | tail -1)
+  local headCommit=$(git log --format="%h" $currentBranch ^"origin/$baseBranch" | tail -1)
   git rebase -i ${headCommit}^
 }
 
@@ -211,16 +240,6 @@ function git-push-force() {
   git push --force origin ${currentBranch}
 }
 
-#########
-# Stash #
-#########
-
-function git-stash-merge() {
-  git stash
-  git merge origin/$(git-branch-current)
-  git stash pop
-}
-
 ############
 # Checkout #
 ############
@@ -231,9 +250,9 @@ function git-checkout-remote-branch() {
   if [ "$2" ]; then
     remote=$2
   fi
-  # Check if the branch begins with the origin (from tab-completion)
+  # Check if the branch begins with a remote origin (from tab-completion)
   if [[ $branchName == $remote* ]]; then
-    branchName=$(printf "%s" $branchName | cut -d '/' -f 2-)
+    branchName=$(printf "%s" $branchName | cut -d / -f 2-)
   fi
   git checkout --track -b $branchName $remote/$branchName
   git branch --set-upstream-to=$remote/$branchName $branchName
@@ -242,11 +261,6 @@ function git-checkout-remote-branch() {
 #############
 # Submodule #
 #############
-
-function git-submodule-update-all() {
-  git submodule sync
-  git submodule update --recursive --init
-}
 
 function git-submodule-peek() {
   local submodule="$1"
@@ -343,14 +357,14 @@ function git-cherry-pick-branch-head() {
 # top of it.
 function git-cherry-pick-rebase() {
   local currentBranch=$(git-branch-current)
-  local parentBranch=$(printf "%s" $currentBranch | cut -d '/' -f 2)
+  local parentBranch=$(git-branch-base)
   local tmpBranch="${currentBranch}-rebase-tmp"
   local total=6
   local i=1
   local abort=0
   local cmd=
 
-  for cmd in "git checkout $parentBranch" \
+  for cmd in "git checkout $baseBranch" \
     "git checkout -b $tmpBranch" \
     "git-cherry-pick-branch-head $currentBranch" \
     "git branch -D $currentBranch" \
@@ -375,14 +389,40 @@ function git-cherry-pick-rebase() {
 # Commit #
 ##########
 
-function git-wip() {
+function git-commit-wip() {
   local commitMessage="Do not merge"
   local currentBranch=$(git-branch-current)
-  if [ $(echo $currentBranch | grep '/') ]; then
-    local featureName=$(echo $currentBranch | cut -d '/' -f 3)
+  if [ $(echo $currentBranch | grep $GIT_BRANCH_DELIMITER) ]; then
+    local featureName=$(echo $currentBranch | cut -d $GIT_BRANCH_DELIMITER -f 3)
     if [ "$featureName" ]; then
       commitMessage=$(printf "%s" $featureName | sed -e 's/-/ /g')
     fi
   fi
   git commit -m "WIP: $commitMessage"
+}
+
+function git-commit-fixup() {
+  local baseBranch=$(git-branch-base)
+  local currentBranch=$(git-branch-current)
+  local options=()
+  local reply=
+  local i=
+  local subject=
+  local displayOption=
+
+  for i in $(git log --format="%h" $currentBranch ^origin/$baseBranch); do
+    subject=$(git log --format="%s" -1 $i)
+    displayOption=$(printf "%s: %s" "$i" "$subject")
+    options+=("$displayOption")
+  done
+
+  local selectedHash=
+  PS3="Squash to which commit? "
+  select reply in "${options[@]}"; do break; done
+  if [ "$reply" ]; then
+    selectedHash=$(printf "%s" "$reply" | cut -d ':' -f 1)
+    git commit --fixup $selectedHash
+  else
+    echo "Invalid selection; aborting"
+  fi
 }
