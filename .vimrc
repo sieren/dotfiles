@@ -1,5 +1,24 @@
+call plug#begin('~/.vim/plugged')
+Plug 'altercation/vim-colors-solarized'
+Plug 'flazz/vim-colorschemes'
+Plug 'majutsushi/tagbar'
+Plug 'edkolev/tmuxline.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'rizzatti/dash.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --system-libclang --system-boost' }
+Plug 'tpope/vim-pathogen'
+Plug 'tpope/vim-fugitive'
+Plug 'xolox/vim-misc'
+Plug 'Yggdroot/indentLine'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'xolox/vim-easytags'
+call plug#end()
+
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect('bundle/{}')
+
 Helptags
 filetype plugin indent on
 filetype plugin on
