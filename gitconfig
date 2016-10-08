@@ -2,3 +2,19 @@
   hist = log --pretty=format:\"%C(yellow)%h%Creset | %Cgreen%an%Creset | %Cred%ad%Creset | %s%C(cyan)%d%Creset\" --graph --date=short -30
   ca = commit --amend
   co = checkout
+  # Clone a repository including all submodules
+  c = clone --recursive
+  # Amend the currently staged files to the latest commit
+  amend = commit --amend --reuse-message=HEAD
+  # Find branches containing commit
+  fb = "!f() { git branch -a --contains $1; }; f"
+  # Find commits by commit message
+  fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+  # Remove branches that have already been merged with master
+  # a.k.a. ‘delete merged’
+  dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+[core]
+  editor = /usr/bin/vim
+[user]
+	email = matthias@s-r-n.de
+	name = sieren
