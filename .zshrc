@@ -47,3 +47,6 @@ export QTDIR64=/Volumes/GuiEnv_64/Qt5.5.0/clang_64
 export PATH=/Volumes/GuiEnv_64/Qt5.5.0/clang_64/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
 
 export TERM=xterm-256color
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
