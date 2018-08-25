@@ -34,8 +34,8 @@ EOPLUGINS
     zgen load zsh-users/zsh-completions src
 
     # theme
-   zgen oh-my-zsh themes/nanotech
 
+    zgen oh-my-zsh themes/nanotech
     # save all to init script
     zgen save
 fi
