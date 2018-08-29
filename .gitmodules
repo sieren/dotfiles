@@ -1,6 +1,6 @@
 [submodule "zgen"]
 	path = zgen
-	url = https://github.com/tarjoilija/zgen
+	url = https://github.com/tarjoilija/zgen.git
 [submodule ".vim/autoload/vim-plug"]
 	path = .vim/autoload/vim-plug
 	url = https://github.com/junegunn/vim-plug.git
