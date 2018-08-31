@@ -13,6 +13,9 @@ alias gtl='git log --decorate=full'
 alias gs='git status'
 alias gsu='git submodule update --init --recursive'
 alias gpf='git push --force'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time)
+
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
@@ -39,13 +42,14 @@ EOPLUGINS
 
     # theme
 
-    zgen oh-my-zsh themes/nanotech
-    # save all to init script
+#    zgen oh-my-zsh themes/nanotech
+    zgen load bhilburn/powerlevel9k powerlevel9k
+# save all to init script
     zgen save
 fi
 
-#ZSH_THEME=sorin
-ZSH_THEME=nanotech
+#ZSH_THEME=nanotech
+ZSH_THEME=powerlevel9k
 
 
 export TERM=xterm-256color
