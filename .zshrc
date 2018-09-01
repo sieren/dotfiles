@@ -3,9 +3,11 @@ source "${HOME}/dotfiles/zgen/zgen.zsh"
 source "${HOME}/dotfiles/git-functions.bash"
 alias 'brew --prefix' /bin/ctags
 # Brew Aliases
-alias cat='bat'
-alias ping='prettyping'
-alias diff='diff-so-fancy'
+if [ "$(uname 2> /dev/null)" != "Linux" ]; then
+  alias cat='bat'
+  alias ping='prettyping'
+  alias diff='diff-so-fancy'
+fi
 set -g default-terminal "screen-256color"
 alias gl='git log --decorate=full --graph'
 alias gh='git hist'
