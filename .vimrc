@@ -12,6 +12,7 @@ Plug 'xolox/vim-misc'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'octol/vim-cpp-enhanced-highlight'
 call plug#end()
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim
