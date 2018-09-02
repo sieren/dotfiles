@@ -15,6 +15,7 @@
   dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 [core]
   editor = /usr/bin/vim
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
 	email = matthias@s-r-n.de
 	name = sieren
