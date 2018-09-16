@@ -2,6 +2,8 @@
 source "${HOME}/dotfiles/zgen/zgen.zsh"
 source "${HOME}/dotfiles/git-functions.bash"
 alias 'brew --prefix' /bin/ctags
+export TERM="xterm-256color"
+export IDF_PATH=~/Documents/Development/esp-idf/
 # Brew Aliases
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
   alias cat='bat'
@@ -17,7 +19,7 @@ alias gsu='git submodule update --init --recursive'
 alias gpf='git push --force'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time)
-
+export PATH=$PATH:~/Documents/Development/esp-idf/tools:~/Documents/Development/xtensa-esp32-elf/bin
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
@@ -54,6 +56,5 @@ fi
 ZSH_THEME=powerlevel9k
 
 
-export TERM=xterm-256color
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
