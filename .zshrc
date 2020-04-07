@@ -3,7 +3,7 @@ source "${HOME}/dotfiles/zgen/zgen.zsh"
 source "${HOME}/dotfiles/git-functions.bash"
 alias 'brew --prefix' /bin/ctags
 export TERM="xterm-256color"
-export IDF_PATH=~/Documents/Development/esp-idf/
+export IDF_PATH=~/Development/esp-idf/
 # Brew Aliases
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
   alias cat='bat'
@@ -19,7 +19,6 @@ alias gsu='git submodule update --init --recursive'
 alias gpf='git push --force'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time)
-export PATH=$PATH:~/Documents/Development/esp-idf/tools:~/Documents/Development/xtensa-esp32-elf/bin
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
@@ -45,16 +44,16 @@ EOPLUGINS
     zgen load zsh-users/zsh-completions src
 
     # theme
-
+    zgen load romkatv/powerlevel10k powerlevel10k
 #    zgen oh-my-zsh themes/nanotech
-    zgen load bhilburn/powerlevel9k powerlevel9k
+ #   zgen load bhilburn/powerlevel9k powerlevel9k
 # save all to init script
     zgen save
 fi
 
 #ZSH_THEME=nanotech
-ZSH_THEME=powerlevel9k
-
+ZSH_THEME=powerlevel10k
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
