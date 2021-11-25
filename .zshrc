@@ -1,7 +1,6 @@
 # load zgen
 source "${HOME}/dotfiles/zgen/zgen.zsh"
 source "${HOME}/dotfiles/git-functions.bash"
-alias 'brew --prefix' /bin/ctags
 export TERM="xterm-256color"
 export IDF_PATH=~/Development/esp-idf/
 # Brew Aliases
@@ -27,12 +26,12 @@ if ! zgen saved; then
 
     # plugins
     zgen oh-my-zsh plugins/git
-    zgen oh-my-zsh plugins/sudo
-    zgen oh-my-zsh plugins/command-not-found
-    zgen oh-my-zsh plugins/ssh-agent
+  #  zgen oh-my-zsh plugins/sudo
+     zgen oh-my-zsh plugins/command-not-found
+#    zgen oh-my-zsh plugins/ssh-agent
     zgen load zsh-users/zsh-syntax-highlighting
 #    zgen load /path/to/super-secret-private-plugin
-
+  zgen load zsh-users/zsh-autosuggestions
     # bulk load
     zgen loadall <<EOPLUGINS
         zsh-users/zsh-history-substring-search
