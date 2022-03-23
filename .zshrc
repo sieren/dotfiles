@@ -16,7 +16,8 @@ alias gtl='git log --decorate=full'
 alias gs='git status'
 alias gsu='git submodule update --init --recursive'
 alias gpf='git push --force'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time)
 # check if there's no init script
 if ! zgen saved; then
