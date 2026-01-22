@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # load zgen
 source "${HOME}/dotfiles/zgen/zgen.zsh"
 source "${HOME}/dotfiles/git-functions.bash"
@@ -7,18 +14,21 @@ export IDF_PATH=~/Development/esp-idf/
 if [ "$(uname 2> /dev/null)" != "Linux" ]; then
   alias cat='bat'
   alias ping='prettyping'
-  alias diff='diff-so-fancy'
 fi
 set -g default-terminal "screen-256color"
+alias dcr='docker compose restart'
+alias dcd='docker compose down'
+alias dcdr='docker compose down && docker compose up -d --force-recreate'
+alias dcp='docker compose pull'
 alias gl='git log --decorate=full --graph'
 alias gh='git hist'
 alias gtl='git log --decorate=full'
 alias gs='git status'
 alias gsu='git submodule update --init --recursive'
 alias gpf='git push --force'
-POWERLEVEL9K_MODE='nerdfont-complete'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time)
+POWERLEVEL10K_MODE='nerdfont-complete'
+POWERLEVEL10K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
+POWERLEVEL10K_RIGHT_PROMPT_ELEMENTS=(status root_indicator time)
 # check if there's no init script
 if ! zgen saved; then
     echo "Creating a zgen save"
@@ -57,3 +67,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
